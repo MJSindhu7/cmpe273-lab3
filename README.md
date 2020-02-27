@@ -13,57 +13,48 @@ pip install pipenv
 ```
 pipenv install flask==1.1.1
 ```
-* Install _[Graphene](https://graphene-python.org/)_ and [Flask GraphQL](https://github.com/graphql-python/flask-graphql) for handling GraphQL schema and binding.
+* Install _[Ariadne](https://ariadnegraphql.org/docs/flask-integration.html)_ for handling GraphQL schema and binding.
 
 ```
-pipenv install graphene==2.1.8
-pipenv install flask-graphql==2.0.1
+pipenv install ariadne==0.10.0
 ```
 
 * Create a schema.py and add this code:
 
-```python
-from graphene import ObjectType, String, Boolean, ID, Field, Int, List
+```
+type Query {
+  get_student(student_id: ID): student
+  get_class(class_id: Int): classes
+}
 
+type Mutation {
+  create_student(student_id: ID!, name: String, course_name: String): [student]
 
-class Student(ObjectType):
-    id = ID()
-    name = String()
+  create_class(class_id: Int!, course_name: String): [classes]
 
-# List view of <any> objects
-class Query(ObjectType):
-    students = List(Student, id=Int(required=True))
+  update_student_class(class_id: Int!, student_id: ID!): classes
 
-    def resolve_students(self, args, context, info):
-        students = [ { "name": "fix" }, { "name": "me" }]
-        return students
+  update_class(class_id: Int!, course_name: String!): classes
+}
 
-schema = graphene.Schema(query=Query)
+type student {
+  student_id: ID!
+  name: String
+  course_name: String
+}
 
-def test():
-    query = '''
-        query students {
-            name
-        }
-    '''
-    result = schema.execute(query)
-    print(f"result={result}")
+type classes {
+  class_id: Int!
+  course_name: String
+  students: [student]
+}
+
 ```
 
 * Create a file called _app.py_ and add this code snippet.
 
 ```python
 from flask import Flask, escape, request
-from schema import Query
-from flask_graphql import GraphQLView
-from graphene import Schema
-
-view_func = GraphQLView.as_view(
-    'graphql', schema=Schema(query=Query), graphiql=True)
-
-
-app = Flask(__name__)
-app.add_url_rule('/graphql', view_func=view_func)
 
 @app.route('/')
 def hello():
@@ -129,7 +120,11 @@ _Response_
 * Mutate a class
 
 ```
-TBD
+ mutation{update_class(class_id: 303, course_name: "uuu" )
+    {
+        class_id
+    }
+  }
 ```
 
 * Query a class
@@ -146,8 +141,24 @@ TBD
 * Add students to a class
 
 ```
-TBD
+ mutation{update_student_class(class_id: 303, student_id: 2 )
+    {
+        class_id
+    }
+  }
 ```
 
+* Mutate a student 
+
+```
+  mutation{create_student(student_id: 7896,
+    name: "Sindhu"
+    course_name: "376")
+    {
+	name
+    }
+  }
+  
+```
 
 
