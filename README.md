@@ -92,9 +92,12 @@ You will be building a RESTful class registration API in this lab.
 * Mutate a new student
 
 ```
-{
-    "name": "Bob Smith"
-}
+ mutation{create_student(student_id: 3,
+    name: "Sindhu")
+    {
+	name
+    }
+  }
 ```
 
 * Quety an existing student
