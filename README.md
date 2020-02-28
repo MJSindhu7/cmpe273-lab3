@@ -106,8 +106,8 @@ mutation{
 _Request_
 
 ```
-{
-  students(id:1238125) {
+ {
+  students(student_id: 6504) {
     name
   }
 }
@@ -137,9 +137,11 @@ mutation{
 
 ```
 {
-  classess(id:1238125) {
-    name
-    students
+  classess(class_id: 919) {
+  	course_name
+    students{
+    	student_id
+    }
   }
 }
 ```
