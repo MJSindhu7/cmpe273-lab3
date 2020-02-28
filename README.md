@@ -95,8 +95,8 @@ You will be building a RESTful class registration API in this lab.
 mutation{
   create_student(name: "Sindhu")
     {
-      student_id
-			name
+      	student_id
+	name
     }
   }
 ```
@@ -127,8 +127,8 @@ _Response_
 mutation{
     create_class(course_name: "CMPE309")
     {
-			course_name
-      class_id
+	course_name
+      	class_id
     }
   }
 ```
@@ -147,15 +147,15 @@ mutation{
 * Add students to a class
 
 ```
-mutation{update_student_class(class_id: 290, student_id: 3384 )
-    {
-        class_id
-      	course_name
-      	students{
-          student_id
-          name
-        }
-    }
+mutation{
+	update_student_class(class_id: 290, student_id: 3384 ){
+       		class_id
+      		course_name
+      		students{
+        		student_id
+          		name
+        	}
+    	}
   }
 ```
 
