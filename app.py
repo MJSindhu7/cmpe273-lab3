@@ -11,8 +11,8 @@ classes = ObjectType('classes')
 app = Flask(__name__)
 
 #GET method 
-query.set_field('get_student', r.get_student)
-query.set_field('get_class', r.get_class)
+query.set_field('students', r.students)
+query.set_field('classess', r.classess)
 
 #POST method
 mutation.set_field('create_student',r.create_student)
