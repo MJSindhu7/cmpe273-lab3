@@ -123,10 +123,11 @@ _Response_
 * Mutate a class
 
 ```
-mutation{create_class(class_id: 303,
-    course_name: "CMPE309")
+mutation{
+    create_class(course_name: "CMPE309")
     {
-	course_name
+			course_name
+      class_id
     }
   }
 ```
@@ -145,9 +146,14 @@ mutation{create_class(class_id: 303,
 * Add students to a class
 
 ```
- mutation{update_student_class(class_id: 303, student_id: 2 )
+mutation{update_student_class(class_id: 290, student_id: 3384 )
     {
         class_id
+      	course_name
+      	students{
+          student_id
+          name
+        }
     }
   }
 ```
