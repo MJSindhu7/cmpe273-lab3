@@ -149,17 +149,5 @@ mutation{create_class(class_id: 303,
   }
 ```
 
-* Mutate a student 
-
-```
-  mutation{create_student(student_id: 7896,
-    name: "Sindhu"
-    course_name: "376")
-    {
-	name
-    }
-  }
-  
-```
 
 
